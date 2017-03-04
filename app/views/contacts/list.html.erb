@@ -1,0 +1,24 @@
+
+<h1>Contact List</h1>
+<%= button_to "Sort: Given Name", :action => "list", :sort => "given" %>
+<%= button_to "Sort: Family Name", :action => "list", :sort => "family" %>
+<%@contacts.each do |c| %>
+  <%= c.given_name %> <%= c.family_name %>
+  -- <%= c.email_address %>
+  -- <%= c.home_address %>
+  <% c.phones.each do |p| %>
+    <br>
+    <%= p.number %> (<%= p.purpose %>)
+  <%end%>
+  <form action="update" method="get">
+    <input type="text" name="given_name" placeholder="Given Name">
+    <input type="text" name="family_name" placeholder="Family Name">
+    <input type="text" name="email_address" placeholder="Email Address">
+    <input type="text" name="home_address" placeholder="Home Address">
+    <input type="text" name="phone_number" placeholder="Phone Number">
+    <input type="text" name="phone_purpose" placeholder="Type of Phone">
+    <input type="hidden" name="contact_id" value="<%= c.id %>">
+    <input type="submit" value="Update">
+  </form>
+  <%= button_to "Destroy", :action => "destroy", :contact_id => c.id %>
+<%end%>
