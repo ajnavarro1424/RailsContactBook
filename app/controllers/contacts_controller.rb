@@ -27,8 +27,9 @@ class ContactsController < ApplicationController
     end
   end
 
-  def add_phone
-
+  def search
+    @contacts = Contact.where("family_name= '%s'", params[:search].to_s )
+    render('list.html.erb')
 
   end
 
